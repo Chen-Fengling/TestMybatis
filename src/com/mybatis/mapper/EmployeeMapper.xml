@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.mapper.EmployeeMapper">
+    <!--
+        namespace：名称空间,有两个用法
+        1、老版本直接认为该Mapper的标志，用namespace + 标识符即可进行查询
+        2、新版本可以将名称空间指定为接口的全类名，与接口动态绑定
+        id：标识符
+        resultType：返回类型
+    -->
+    <select id="selectEmployeeById" resultType="com.mybatis.bean.Employee">
+        select * from employee where id = #{id}
+    </select>
+</mapper>
