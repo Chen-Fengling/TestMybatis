@@ -29,6 +29,7 @@ public class MybatisTest {
 
         //3、获取SqlSession实例，能直接执行已经映射了的sql语句
         //一个SqlSession就代表与数据库的一次会话，用完关闭
+        //SqlSession和Connection一样都是非线程安全的，每次使用应该创建新的SqlSession
         SqlSession sqlSession = sqlSessionFactory.openSession();
         // selectOne(String s,Object o)
         //参数1：sql的唯一标识
@@ -55,7 +56,9 @@ public class MybatisTest {
         InputStream inputStream = Resources.getResourceAsStream(resource);
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+            //Mapper没有实现类，但是Mybatis会为接口生成一个代理对象，将接口和xml绑定起来
             EmployeeMapper employeeMapper = sqlSession.getMapper(EmployeeMapper.class);
+
             System.out.println(employeeMapper.getClass());//返回一个代理对象
             Employee employee = employeeMapper.selectEmployeeById(1);
             System.out.println(employee);
